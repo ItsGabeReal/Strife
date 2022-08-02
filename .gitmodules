@@ -1,0 +1,3 @@
+[submodule "Strife/vendor/spdlog"]
+	path = Strife/vendor/spdlog
+	url = https://github.com/gabime/spdlog
