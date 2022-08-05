@@ -18,6 +18,9 @@ project "Strife"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "stpch.h"
+	pchsource "Strife/src/stpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -27,7 +30,7 @@ project "Strife"
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name)/src"
+		"%{prj.name}/src"
 	}
 
 	filter "system:windows"

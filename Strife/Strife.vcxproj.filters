@@ -4,6 +4,9 @@
     <Filter Include="Strife">
       <UniqueIdentifier>{D29AEED1-BE3C-19A8-A7F7-2CFC9338A0F8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Strife\Events">
+      <UniqueIdentifier>{76A6B3CD-E266-2F04-ABA1-7881172174E0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Strife.h" />
@@ -16,13 +19,22 @@
     <ClInclude Include="src\Strife\EntryPoint.h">
       <Filter>Strife</Filter>
     </ClInclude>
+    <ClInclude Include="src\Strife\Events\ApplicationEvent.h">
+      <Filter>Strife\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Strife\Events\Event.h">
+      <Filter>Strife\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Strife\Events\KeyEvent.h">
+      <Filter>Strife\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Strife\Events\MouseEvent.h">
+      <Filter>Strife\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Strife\Log.h">
       <Filter>Strife</Filter>
     </ClInclude>
-    <ClInclude Include="src\Strife\Events\Event.h" />
-    <ClInclude Include="src\Strife\Events\ApplicationEvent.h" />
-    <ClInclude Include="src\Strife\Events\KeyEvent.h" />
-    <ClInclude Include="src\Strife\Events\MouseEvent.h" />
+    <ClInclude Include="src\stpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Strife\Application.cpp">
@@ -31,5 +43,6 @@
     <ClCompile Include="src\Strife\Log.cpp">
       <Filter>Strife</Filter>
     </ClCompile>
+    <ClCompile Include="src\stpch.cpp" />
   </ItemGroup>
 </Project>

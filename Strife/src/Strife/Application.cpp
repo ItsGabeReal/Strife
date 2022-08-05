@@ -1,3 +1,4 @@
+#include "stpch.h"
 #include "Application.h"
 #include "Events/KeyEvent.h"
 #include "Log.h"

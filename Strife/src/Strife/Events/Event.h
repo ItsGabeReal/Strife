@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Strife/Core.h"
-#include <string>
-#include <functional>
 
 namespace Strife {
 

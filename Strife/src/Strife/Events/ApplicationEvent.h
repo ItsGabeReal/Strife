@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Strife {
 
 	class STRIFE_API WindowCloseEvent : public Event
