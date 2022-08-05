@@ -1,4 +1,6 @@
 #include "Application.h"
+#include "Events/KeyEvent.h"
+#include "Log.h"
 
 namespace Strife {
 
@@ -14,6 +16,8 @@ namespace Strife {
 
 	void Application::Run()
 	{
+		KeyPressedEvent keyPressed(120, 0);
+		ST_TRACE(keyPressed.ToString());
 		while (true);
 	}
 

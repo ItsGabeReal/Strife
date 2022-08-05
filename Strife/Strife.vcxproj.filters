@@ -19,6 +19,10 @@
     <ClInclude Include="src\Strife\Log.h">
       <Filter>Strife</Filter>
     </ClInclude>
+    <ClInclude Include="src\Strife\Events\Event.h" />
+    <ClInclude Include="src\Strife\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Strife\Events\KeyEvent.h" />
+    <ClInclude Include="src\Strife\Events\MouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Strife\Application.cpp">

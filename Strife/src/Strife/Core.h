@@ -9,3 +9,5 @@
 #else
 	#error Strife only supports Windows :(
 #endif // ST_PLATFORM_WINDOWS
+
+#define BIT(x) (1 << x)
