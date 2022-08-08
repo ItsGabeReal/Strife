@@ -1,3 +1,6 @@
 [submodule "Strife/vendor/spdlog"]
 	path = Strife/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Strife/vendor/GLFW"]
+	path = Strife/vendor/GLFW
+	url = https://github.com/TheCherno/GLFW

@@ -19,8 +19,8 @@ namespace Strife {
 		WindowResizeEvent(unsigned int width, unsigned int height)
 			: m_Width(width), m_Height(height) {}
 
-		inline const unsigned int& GetWidth() const { return m_Width; }
-		inline const unsigned int& GetHeight() const { return m_Height; }
+		inline unsigned int GetWidth() const { return m_Width; }
+		inline unsigned int GetHeight() const { return m_Height; }
 
 		std::string ToString() const override
 		{

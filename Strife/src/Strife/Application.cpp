@@ -7,7 +7,7 @@ namespace Strife {
 
 	Application::Application()
 	{
-
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 
 	Application::~Application()
@@ -17,9 +17,10 @@ namespace Strife {
 
 	void Application::Run()
 	{
-		KeyPressedEvent keyPressed(120, 0);
-		ST_TRACE(keyPressed.ToString());
-		while (true);
+		while (m_Running)
+		{
+			m_Window->OnUpdate();
+		}
 	}
 
 }

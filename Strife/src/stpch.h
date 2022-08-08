@@ -7,6 +7,8 @@
 * compile times considerably.
 */
 
+#include "Strife/Log.h"
+
 // Utilities
 #include <iostream>
 #include <memory>

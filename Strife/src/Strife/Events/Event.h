@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stpch.h"
 #include "Strife/Core.h"
 
 namespace Strife {

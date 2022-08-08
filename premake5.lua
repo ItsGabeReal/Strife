@@ -10,6 +10,11 @@ workspace "Strife"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Strife/vendor/GLFW/include"
+
+include "Strife/vendor/GLFW"
+
 project "Strife"
 	location "Strife"
 	kind "SharedLib"
@@ -29,8 +34,15 @@ project "Strife"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src"
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -50,15 +62,21 @@ project "Strife"
 		}
 
 	filter "configurations:Debug"
-		defines "ST_DEBUG"
+		defines {
+			"ST_DEBUG",
+			"ST_ENABLE_ASSERTS"
+		}
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "ST_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "ST_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 
