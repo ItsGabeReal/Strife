@@ -8,11 +8,11 @@ namespace Strife {
 	{
 
 	public:
-		MouseMovedEvent(int mouseX, int mouseY)
+		MouseMovedEvent(float mouseX, float mouseY)
 			: m_MouseX(mouseX), m_MouseY(mouseY) {}
 
-		inline const int& GetX() const { return m_MouseX; }
-		inline const int& GetY() const { return m_MouseY; }
+		inline float GetX() const { return m_MouseX; }
+		inline float GetY() const { return m_MouseY; }
 
 		std::string ToString() const override
 		{
@@ -25,7 +25,7 @@ namespace Strife {
 		EVENT_CLASS_TYPE(MouseMoved)
 
 	private:
-		int m_MouseX, m_MouseY; // Cherno made these floats for some reason. Personally I think he's about as smart as a box of cigars
+		float m_MouseX, m_MouseY;
 
 	};
 
@@ -33,11 +33,11 @@ namespace Strife {
 	{
 
 	public:
-		MouseScrolledEvent(int xOffset, int yOffset)
+		MouseScrolledEvent(float xOffset, float yOffset)
 			: m_XOffset(xOffset), m_YOffset(yOffset) {}
 
-		inline const int& GetXOffset() const { return m_XOffset; }
-		inline const int& GetYOffset() const { return m_YOffset; }
+		inline float GetXOffset() const { return m_XOffset; }
+		inline float GetYOffset() const { return m_YOffset; }
 
 		std::string ToString() const override
 		{
@@ -50,7 +50,7 @@ namespace Strife {
 		EVENT_CLASS_TYPE(MouseScrolled)
 
 	private:
-		int m_XOffset, m_YOffset;
+		float m_XOffset, m_YOffset;
 
 	};
 
@@ -58,7 +58,7 @@ namespace Strife {
 	{
 
 	public:
-		inline const int& GetMouseButton() const { return m_Button; }
+		inline int GetMouseButton() const { return m_Button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse | EventCategoryMouseButton)
 

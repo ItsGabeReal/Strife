@@ -5,6 +5,9 @@
 #include <GLFW/glfw3.h>
 
 namespace Strife {
+
+	void GLFWErrorCallback(int error_code, const char* description);
+
 	class WindowsWindow : public Window
 	{
 	public:

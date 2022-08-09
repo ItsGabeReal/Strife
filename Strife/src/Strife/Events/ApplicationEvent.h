@@ -60,8 +60,8 @@ namespace Strife {
 		WindowMovedEvent(int xPosition, int yPosition)
 			: m_XPosition(xPosition), m_YPosition(yPosition) {}
 
-		inline const int& GetXPosition() const { return m_XPosition; }
-		inline const int& GetYPosition() const { return m_YPosition; }
+		inline int GetXPosition() const { return m_XPosition; }
+		inline int GetYPosition() const { return m_YPosition; }
 
 		std::string ToString() const override
 		{
@@ -83,7 +83,7 @@ namespace Strife {
 		AppTickEvent(float deltaTime)
 			: m_DeltaTime(deltaTime) {}
 
-		inline const int& GetDeltaTime() const { return m_DeltaTime; }
+		inline float GetDeltaTime() const { return m_DeltaTime; }
 
 		std::string ToString() const override
 		{

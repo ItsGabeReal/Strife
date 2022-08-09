@@ -34,7 +34,7 @@ namespace Strife {
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
 	class STRIFE_API Event {
-
+		friend class EventDispatcher;
 	public:
 		virtual EventType GetEventType() const = 0; // Included in EVENT_CLASS_TYPE
 		virtual const char* GetName() const = 0;    // Included in EVENT_CLASS_TYPE
@@ -45,6 +45,8 @@ namespace Strife {
 		{
 			return GetCategoryFlags() & category;
 		}
+
+		inline bool IsHandled() const { return m_Handled; }
 
 	protected:
 		bool m_Handled = false;

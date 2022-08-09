@@ -9,6 +9,11 @@ namespace Strife {
 	// Ensure we only initialize GLFW once, even though there may be multiple windows
 	static bool s_GLFWInitialized = false;
 
+	void GLFWErrorCallback(int error_code, const char* description)
+	{
+		ST_CORE_ERROR("GLFW error (code {0}): {1}", error_code, description);
+	}
+
 	Window* Window::Create(const WindowProps& props /* = WindowProps() */)
 	{
 		return new WindowsWindow(props);
@@ -36,7 +41,7 @@ namespace Strife {
 		{
 			int success = glfwInit();
 			ST_CORE_ASSERT(success, "Failed to initialize GLFW");
-
+			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
 
@@ -68,8 +73,21 @@ namespace Strife {
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-				WindowFocusEvent event;
-				data.EventCallback(event);
+				switch (focused)
+				{
+					case 0:
+					{
+						WindowLostFocusEvent event;
+						data.EventCallback(event);
+						break;
+					}
+					case 1:
+					{
+						WindowFocusEvent event;
+						data.EventCallback(event);
+						break;
+					}
+				}
 			});
 
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -78,19 +96,62 @@ namespace Strife {
 
 				switch (action)
 				{
-				case GLFW_PRESS:
-					KeyPressedEvent event(key, 0);
-					data.EventCallback(event);
-					break;
-				case GLFW_REPEAT:
-					KeyPressedEvent event(key, 1);
-					data.EventCallback(event);
-					break;
-				case GLFW_RELEASE:
-					KeyReleasedEvent event(key);
-					data.EventCallback(event);
-					break;
+					case GLFW_PRESS:
+					{
+						KeyPressedEvent event(key, 0);
+						data.EventCallback(event);
+						break;
+					}
+					case GLFW_REPEAT:
+					{
+						KeyPressedEvent event(key, 1);
+						data.EventCallback(event);
+						break;
+					}
+					case GLFW_RELEASE:
+					{
+						KeyReleasedEvent event(key);
+						data.EventCallback(event);
+						break;
+					}
 				}
+			});
+
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				switch (action)
+				{
+					case GLFW_RELEASE:
+					{
+						MouseButtonReleasedEvent event(button);
+						data.EventCallback(event);
+						break;
+					}
+					case GLFW_PRESS:
+					{
+						MouseButtonPressedEvent event(button);
+						data.EventCallback(event);
+						break;
+					}
+				}
+			});
+
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xoffset, double yoffset)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				MouseScrolledEvent event(static_cast<float>(xoffset), static_cast<float>(yoffset));
+				data.EventCallback(event);
+			});
+
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xpos, double ypos)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				MouseMovedEvent event(static_cast<float>(xpos), static_cast<float>(ypos));
+				data.EventCallback(event);
 			});
 	}
 

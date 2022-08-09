@@ -40,6 +40,12 @@
     <ClInclude Include="src\Strife\Events\MouseEvent.h">
       <Filter>Strife\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Strife\Layer.h">
+      <Filter>Strife</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Strife\LayerStack.h">
+      <Filter>Strife</Filter>
+    </ClInclude>
     <ClInclude Include="src\Strife\Log.h">
       <Filter>Strife</Filter>
     </ClInclude>
@@ -53,6 +59,12 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Strife\Application.cpp">
+      <Filter>Strife</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Strife\Layer.cpp">
+      <Filter>Strife</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Strife\LayerStack.cpp">
       <Filter>Strife</Filter>
     </ClCompile>
     <ClCompile Include="src\Strife\Log.cpp">

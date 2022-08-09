@@ -8,7 +8,6 @@ extern Strife::Application* Strife::CreateApplication();
 int main(int argc, char** argv)
 {
 	Strife::Log::Init();
-	Strife::Log::GetClientLogger()->info("Initialized Log!");
 
 	auto app = Strife::CreateApplication();
 	app->Run();
