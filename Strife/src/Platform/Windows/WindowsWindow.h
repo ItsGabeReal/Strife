@@ -28,6 +28,8 @@ namespace Strife {
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 
+		void LinkGLFWEvents();
+
 		GLFWwindow* m_Window;
 
 		struct WindowData

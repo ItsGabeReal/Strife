@@ -9,7 +9,6 @@ public:
 
 	void OnUpdate() override
 	{
-		ST_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Strife::Event& event) override

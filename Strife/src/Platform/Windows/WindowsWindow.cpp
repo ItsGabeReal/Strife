@@ -1,13 +1,15 @@
 #include "stpch.h"
 #include "WindowsWindow.h"
+
 #include "Strife/Events/ApplicationEvent.h"
 #include "Strife/Events/KeyEvent.h"
 #include "Strife/Events/MouseEvent.h"
 
+#include <glad/glad.h>
+
 namespace Strife {
 
-	// Ensure we only initialize GLFW once, even though there may be multiple windows
-	static bool s_GLFWInitialized = false;
+	static bool s_GLFWInitialized = false; // Make sure we don't initialize the global instance of glfw more than once
 
 	void GLFWErrorCallback(int error_code, const char* description)
 	{
@@ -21,12 +23,12 @@ namespace Strife {
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
-		Init(props);
+		Init(props); // I guess putting initialization in a separate function is good coding practice
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
-		Shutdown();
+		Shutdown(); // It seems like you should have as little as possible the constructor & destructor
 	}
 
 	void WindowsWindow::Init(const WindowProps& props)
@@ -41,16 +43,27 @@ namespace Strife {
 		{
 			int success = glfwInit();
 			ST_CORE_ASSERT(success, "Failed to initialize GLFW");
-			glfwSetErrorCallback(GLFWErrorCallback);
+			glfwSetErrorCallback(GLFWErrorCallback); // Handle cases where glfw runs into an error
 			s_GLFWInitialized = true;
 		}
 
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		glfwSetWindowUserPointer(m_Window, &m_Data);
+		glfwMakeContextCurrent(m_Window); // We need this, and I don't know why
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		ST_CORE_ASSERT(status, "Failed to initialize Glad");
+		glfwSetWindowUserPointer(m_Window, &m_Data); // We can store any data we want in here and get a reference to said data from glfw when we need it. Pretty cool :)
 		SetVSync(true);
 
-		// Set GLFW callbacks
+		LinkGLFWEvents(); // Handle window and input events
+	}
+
+	void WindowsWindow::Shutdown()
+	{
+		glfwDestroyWindow(m_Window);
+	}
+
+	void WindowsWindow::LinkGLFWEvents()
+	{
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -58,7 +71,7 @@ namespace Strife {
 				WindowResizeEvent event(width, height);
 				data.Width = width;
 				data.Height = height;
-				data.EventCallback(event); // Set width and height first just in case anything uses them to access the updated size
+				data.EventCallback(event); // Set width and height first just in case anything uses them to get the updated size
 			});
 
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
@@ -75,18 +88,18 @@ namespace Strife {
 
 				switch (focused)
 				{
-					case 0:
-					{
-						WindowLostFocusEvent event;
-						data.EventCallback(event);
-						break;
-					}
-					case 1:
-					{
-						WindowFocusEvent event;
-						data.EventCallback(event);
-						break;
-					}
+				case 0: // Window Lost Focus
+				{
+					WindowLostFocusEvent event;
+					data.EventCallback(event);
+					break;
+				}
+				case 1: // Window Focused
+				{
+					WindowFocusEvent event;
+					data.EventCallback(event);
+					break;
+				}
 				}
 			});
 
@@ -96,24 +109,24 @@ namespace Strife {
 
 				switch (action)
 				{
-					case GLFW_PRESS:
-					{
-						KeyPressedEvent event(key, 0);
-						data.EventCallback(event);
-						break;
-					}
-					case GLFW_REPEAT:
-					{
-						KeyPressedEvent event(key, 1);
-						data.EventCallback(event);
-						break;
-					}
-					case GLFW_RELEASE:
-					{
-						KeyReleasedEvent event(key);
-						data.EventCallback(event);
-						break;
-					}
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent event(key, 0);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_REPEAT:
+				{
+					KeyPressedEvent event(key, 1);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					KeyReleasedEvent event(key);
+					data.EventCallback(event);
+					break;
+				}
 				}
 			});
 
@@ -123,18 +136,18 @@ namespace Strife {
 
 				switch (action)
 				{
-					case GLFW_RELEASE:
-					{
-						MouseButtonReleasedEvent event(button);
-						data.EventCallback(event);
-						break;
-					}
-					case GLFW_PRESS:
-					{
-						MouseButtonPressedEvent event(button);
-						data.EventCallback(event);
-						break;
-					}
+				case GLFW_RELEASE:
+				{
+					MouseButtonReleasedEvent event(button);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_PRESS:
+				{
+					MouseButtonPressedEvent event(button);
+					data.EventCallback(event);
+					break;
+				}
 				}
 			});
 
@@ -155,21 +168,16 @@ namespace Strife {
 			});
 	}
 
-	void WindowsWindow::Shutdown()
-	{
-		glfwDestroyWindow(m_Window);
-	}
-
 	void WindowsWindow::OnUpdate()
 	{
-		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		glfwPollEvents(); // Triggers the callbacks of pending window and input events. In other words, we don't receive events if we don't poll them
+		glfwSwapBuffers(m_Window); // Swaps the front buffer (what the monitor displays) with the back buffer (what the computer writes to)
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
 		if (enabled)
-			glfwSwapInterval(1);
+			glfwSwapInterval(1); // Delivers the current frame the NEXT time the buffers are swapped. This prevents screen tearing (I could be wrong about this)
 		else
 			glfwSwapInterval(0);
 

@@ -12,8 +12,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Strife/vendor/GLFW/include"
+IncludeDir["Glad"] = "Strife/vendor/Glad/include"
 
 include "Strife/vendor/GLFW"
+include "Strife/vendor/Glad"
 
 project "Strife"
 	location "Strife"
@@ -36,24 +38,27 @@ project "Strife"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
 	filter "system:windows"
 		cppdialect "C++20"
-		staticruntime "On"
+		staticruntime "off"
 		systemversion "latest"
 
 		defines
 		{
 			"ST_PLATFORM_WINDOWS",
-			"ST_BUILD_DLL"
+			"ST_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -66,17 +71,14 @@ project "Strife"
 			"ST_DEBUG",
 			"ST_ENABLE_ASSERTS"
 		}
-		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "ST_RELEASE"
-		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "ST_DIST"
-		buildoptions "/MD"
 		optimize "On"
 
 

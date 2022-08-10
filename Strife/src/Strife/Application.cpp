@@ -1,7 +1,9 @@
 #include "stpch.h"
 #include "Application.h"
-#include "Events/KeyEvent.h"
+
 #include "Log.h"
+
+#include <glad/glad.h>
 
 namespace Strife {
 
@@ -10,7 +12,7 @@ namespace Strife {
 	Application::Application()
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(&Application::OnEvent));
+		m_Window->SetEventCallback(BIND_EVENT_FN(&Application::OnEvent)); // Now when EventCallback is called (like in WindowsWindow::LinkGLFWEvents), we end up calling OnEvent
 	}
 
 	Application::~Application()
@@ -22,6 +24,9 @@ namespace Strife {
 	{
 		while (m_Running)
 		{
+			glClearColor(0.05, 0.1, 0.4, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			m_Window->OnUpdate();
 
 			for (Layer* layer : m_LayerStack)
@@ -32,11 +37,12 @@ namespace Strife {
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(&Application::OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(&Application::OnWindowClose)); // Dispatch every WindowCloseEvent to OnWindowClose
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
-			(*--it)->OnEvent(e);
+			(*--it)->OnEvent(e); // Move the iterator forward by 1, de-reference the layer, and send the event to the layer
+
 			if (e.IsHandled())
 				break;
 		}
