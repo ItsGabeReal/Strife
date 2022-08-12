@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="src\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Strife.h" />
     <ClInclude Include="src\Strife\Application.h" />
@@ -160,17 +161,23 @@
     <ClInclude Include="src\Strife\Events\Event.h" />
     <ClInclude Include="src\Strife\Events\KeyEvent.h" />
     <ClInclude Include="src\Strife\Events\MouseEvent.h" />
+    <ClInclude Include="src\Strife\Input.h" />
     <ClInclude Include="src\Strife\Layer.h" />
     <ClInclude Include="src\Strife\LayerStack.h" />
     <ClInclude Include="src\Strife\Log.h" />
+    <ClInclude Include="src\Strife\MouseButtonCodes.h" />
     <ClInclude Include="src\Strife\Window.h" />
     <ClInclude Include="src\stpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Strife\Application.cpp" />
+    <ClInclude Include="src\Strife\Keycodes.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClCompile Include="src\Strife\Layer.cpp" />
     <ClCompile Include="src\Strife\LayerStack.cpp" />
     <ClCompile Include="src\Strife\Log.cpp" />

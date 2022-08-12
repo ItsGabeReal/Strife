@@ -9,6 +9,8 @@ public:
 
 	void OnUpdate() override
 	{
+		if (Strife::Input::IsKeyPressed(ST_KEY_ENTER))
+			ST_TRACE("ENTER is being pressed");
 	}
 
 	void OnEvent(Strife::Event& event) override

@@ -5,6 +5,8 @@
 
 #include <glad/glad.h>
 
+#include "Strife/Input.h"
+
 namespace Strife {
 
 #define BIND_EVENT_FN(x) std::bind(x, this, std::placeholders::_1)
@@ -29,13 +31,14 @@ namespace Strife {
 	{
 		while (m_Running)
 		{
-			m_Window->OnUpdate();
 
 			glClearColor(0.05, 0.1, 0.4, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			m_Window->OnUpdate();
 		}
 	}
 

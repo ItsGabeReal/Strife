@@ -37,6 +37,8 @@ namespace Strife {
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
+		virtual void* GetNativeWindow() const = 0; // Each rendering API has a different window class (like GLFWWindow, HWND, etc) they can all be accessed through void*
+
 		static Window* Create(const WindowProps& props = WindowProps());
 	};
 }
