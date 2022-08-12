@@ -1,5 +1,6 @@
 workspace "Strife"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -15,9 +16,13 @@ IncludeDir["GLFW"] = "Strife/vendor/GLFW/include"
 IncludeDir["Glad"] = "Strife/vendor/Glad/include"
 IncludeDir["ImGui"] = "Strife/vendor/ImGui"
 
-include "Strife/vendor/GLFW"
-include "Strife/vendor/Glad"
-include "Strife/vendor/ImGui"
+
+group "Dependencies"
+	include "Strife/vendor/GLFW"
+	include "Strife/vendor/Glad"
+	include "Strife/vendor/ImGui"
+
+group ""
 
 project "Strife"
 	location "Strife"
@@ -67,22 +72,22 @@ project "Strife"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"
-		defines {
-			"ST_DEBUG",
-			"ST_ENABLE_ASSERTS"
-		}
+		defines "ST_DEBUG"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "ST_RELEASE"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "ST_DIST"
+		runtime "Release"
 		optimize "On"
 
 
@@ -113,7 +118,7 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++20"
-		staticruntime "On"
+		staticruntime "off"
 		systemversion "latest"
 
 		defines
@@ -123,15 +128,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "ST_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "ST_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "ST_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
