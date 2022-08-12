@@ -49,7 +49,7 @@ namespace Strife {
 
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window); // We need this, and I don't know why
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress); // Load modern OpenGL functionality instead of relying on old OpenGL
 		ST_CORE_ASSERT(status, "Failed to initialize Glad");
 		glfwSetWindowUserPointer(m_Window, &m_Data); // We can store any data we want in here and get a reference to said data from glfw when we need it. Pretty cool :)
 		SetVSync(true);
@@ -130,6 +130,14 @@ namespace Strife {
 				}
 			});
 
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int character)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				KeyTypedEvent event(character);
+				data.EventCallback(event);
+			});
+
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -155,7 +163,7 @@ namespace Strife {
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-				MouseScrolledEvent event(static_cast<float>(xoffset), static_cast<float>(yoffset));
+				MouseScrollEvent event(static_cast<float>(xoffset), static_cast<float>(yoffset));
 				data.EventCallback(event);
 			});
 

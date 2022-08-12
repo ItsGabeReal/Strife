@@ -13,7 +13,8 @@ public:
 
 	void OnEvent(Strife::Event& event) override
 	{
-		ST_INFO("{0}", event.ToString());
+		if(event.GetEventType() != Strife::EventType::MouseMoved)
+			ST_INFO("{0}", event.ToString());
 	}
 };
 
@@ -23,6 +24,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Strife::ImGuiLayer());
 	}
 	~Sandbox() {}
 };

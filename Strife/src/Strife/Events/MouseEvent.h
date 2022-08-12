@@ -29,11 +29,11 @@ namespace Strife {
 
 	};
 
-	class STRIFE_API MouseScrolledEvent : public Event
+	class STRIFE_API MouseScrollEvent : public Event
 	{
 
 	public:
-		MouseScrolledEvent(float xOffset, float yOffset)
+		MouseScrollEvent(float xOffset, float yOffset)
 			: m_XOffset(xOffset), m_YOffset(yOffset) {}
 
 		inline float GetXOffset() const { return m_XOffset; }
@@ -42,12 +42,12 @@ namespace Strife {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseScrolledEvent: " << m_XOffset << " x offset, " << m_YOffset << " y offset";
+			ss << "MouseScrollEvent: " << m_XOffset << " x offset, " << m_YOffset << " y offset";
 			return ss.str();
 		}
 
 		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
-		EVENT_CLASS_TYPE(MouseScrolled)
+		EVENT_CLASS_TYPE(MouseScroll)
 
 	private:
 		float m_XOffset, m_YOffset;

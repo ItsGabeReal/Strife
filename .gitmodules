@@ -4,3 +4,6 @@
 [submodule "Strife/vendor/GLFW"]
 	path = Strife/vendor/GLFW
 	url = https://github.com/TheCherno/GLFW
+[submodule "Strife/vendor/imgui"]
+	path = Strife/vendor/imgui
+	url = https://github.com/TheCherno/imgui
