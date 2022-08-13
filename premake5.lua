@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Strife/vendor/GLFW/include"
 IncludeDir["Glad"] = "Strife/vendor/Glad/include"
 IncludeDir["ImGui"] = "Strife/vendor/ImGui"
+IncludeDir["glm"] = "Strife/vendor/glm"
 
 
 group "Dependencies"
@@ -38,7 +39,9 @@ project "Strife"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -47,7 +50,8 @@ project "Strife"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -108,7 +112,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Strife/vendor/spdlog/include",
-		"Strife/src"
+		"Strife/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links
