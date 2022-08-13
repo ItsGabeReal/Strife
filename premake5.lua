@@ -23,6 +23,9 @@ group "Dependencies"
 	include "Strife/vendor/Glad"
 	include "Strife/vendor/ImGui"
 
+	filter "system:windows"
+		defines "IMGUI_API=__declspec(dllexport)"
+
 group ""
 
 project "Strife"
@@ -113,6 +116,7 @@ project "Sandbox"
 	{
 		"Strife/vendor/spdlog/include",
 		"Strife/src",
+		"Strife/vendor",
 		"%{IncludeDir.glm}"
 	}
 

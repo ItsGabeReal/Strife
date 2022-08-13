@@ -11,17 +11,12 @@ namespace Strife {
 		ImGuiLayer();
 		~ImGuiLayer();
 
-		void OnAttach() override;
-		void OnDetatch() override;
-		void OnUpdate() override;
-		void OnEvent(Event& e) override;
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnImGuiRender() override;
 
-		static ImGuiKey GlfwKeyToImGuiKey(int key);
-		static int KeyToModifier(int keycode);
-		static void SetModifier(int modifier, bool enabled);
-
-		static void CopyToClipboard(void* user_data, const char* text);
-		static const char* PasteFromClipboard(void* user_data);
+		void BeginFrame();
+		void EndFrame();
 	private:
 		float m_Time = 0.0f;
 	};

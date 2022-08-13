@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Layer.h"
 #include "LayerStack.h"
+#include "ImGui/ImGuiLayer.h"
 
 namespace Strife {
 	class STRIFE_API Application
@@ -29,6 +30,7 @@ namespace Strife {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 

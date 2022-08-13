@@ -20,6 +20,9 @@ namespace Strife {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(&Application::OnEvent)); // Now when EventCallback is called (like in WindowsWindow::LinkGLFWEvents), we end up calling OnEvent
+		
+		m_ImGuiLayer = new ImGuiLayer(); // Create the ImGui layer
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -37,6 +40,12 @@ namespace Strife {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			// Render ImGui
+			m_ImGuiLayer->BeginFrame();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->EndFrame();
 
 			m_Window->OnUpdate();
 		}
