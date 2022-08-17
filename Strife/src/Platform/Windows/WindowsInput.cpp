@@ -6,7 +6,7 @@
 
 namespace Strife {
 
-	Input* Input::s_Instance = new WindowsInput();
+	Input* Input::s_Instance = new WindowsInput(); // Set the global input instance
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{

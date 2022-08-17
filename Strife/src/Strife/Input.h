@@ -6,10 +6,10 @@ namespace Strife {
 
 	struct MousePosition
 	{
-		MousePosition(float mouseX, float mouseY)
+		MousePosition(double mouseX, double mouseY)
 			: X(mouseX), Y(mouseY) {}
-		float X = 0;
-		float Y = 0;
+		double X = 0.0;
+		double Y = 0.0;
 	};
 
 	class STRIFE_API Input

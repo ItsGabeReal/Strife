@@ -35,7 +35,7 @@ namespace Strife {
 		while (m_Running)
 		{
 
-			glClearColor(0.05, 0.1, 0.4, 1);
+			glClearColor(0.05f, 0.1f, 0.4f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
